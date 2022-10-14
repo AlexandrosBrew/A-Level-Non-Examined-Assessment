@@ -33,14 +33,21 @@ class GetDatabase:
 class EditDatabase:
     def __init__(self):
         load_database()
-    
-    def editUsers(self, attri, UserID, table, newVal):
-        if validate_edit(attri, newVal, UserID, table):
+    #Edits the UserAccounts table
+    def editUsersAccount(self, attri, userID, newVal):
+        #Calls the validate_edit funciton to cherck if the entered value is alright to enter into the database
+        if validate_edit(attri, newVal, userID, 'UserAccounts'):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
-                cursor.execute('UPDATE '+table+' SET '+newVal+' WHERE UserID == ' +UserID)
+                cursor.execute('UPDATE UserAccounts SET '+newVal+' WHERE UserID == ' +userID)
                 print('Completed edit')
-
         else:
             print('Could not complete edit')
+    
+    def addUserAccount(self, attri, value):
+        with sqlite3.connect('SignTeach.db') as db:
+            cursor = db.cursor()
+            cursor.execute(f'INSERT INTO UserAccounts ({attri}) VALUES ({value});')
+            cursor.commit()
+
 
