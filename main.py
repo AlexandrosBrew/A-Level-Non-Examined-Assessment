@@ -1,4 +1,8 @@
 from databaseCommands import *
 
+# editdb.addUserAccount('Alex', 'greycourt')
+
 editdb = EditDatabase()
-editdb.addUserAccount('Username', 'John')
+editdb.removeUserAccount('Alex')
+getdb = GetDatabase()
+getdb.getUserAccount('Alex')
