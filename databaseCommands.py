@@ -1,5 +1,4 @@
 import sqlite3
-from unittest import result
 from createDatabase import load_database
 from validation import *
 
