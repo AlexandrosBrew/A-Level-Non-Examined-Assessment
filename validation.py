@@ -1,6 +1,6 @@
 import sqlite3
 
-#Compares the value that is going to be entered to the validation rules and returns True/False depending if it meets the requirements
+#!Compares the value that is going to be entered to the validation rules and returns True/False depending if it meets the requirements
 def validate_edit(attri, newVal, table):
     with sqlite3.connect('SignTeach.db') as db:
         cursor = db.cursor()

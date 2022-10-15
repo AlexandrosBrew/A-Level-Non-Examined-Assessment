@@ -1,8 +1,13 @@
-import sqlite3
+import sqlite3 #!Imports the sqlite3 library
 
+#!Function to load the database file (or create one if it does not exitst)
 def load_database():
-    with sqlite3.connect('SignTeach.db') as db:
-        cursor = db.cursor()
+
+    #!Connects to the database file so it can be manipulated.
+    with sqlite3.connect('SignTeach.db') as db: 
+        cursor = db.cursor() #!This cursor lets me navigate the database
+        
+        #!This last section creates the different tables that I will be utilising
         sql_UserAccount = '''
             CREATE TABLE IF NOT EXISTS UserAccounts(
                 UserID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,5 +34,5 @@ def load_database():
             '''
         cursor.execute(sql_Users)
 
-if __name__ == '__main__':
+if __name__ == '__main__': #!This executes the function if this file is run directly and not run from an import.
     load_database()

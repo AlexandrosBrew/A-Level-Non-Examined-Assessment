@@ -22,7 +22,7 @@ class EditDatabase:
     def __init__(self):
         load_database()
 
-    #Edits the UserAccounts table
+    #!Edits the UserAccounts table
     def editUsersAccount(self, attri, newVal, Username):
         #Calls the validate_edit funciton to cherck if the entered value is alright to enter into the database
         if validate_edit(attri, newVal, 'UserAccounts'):
