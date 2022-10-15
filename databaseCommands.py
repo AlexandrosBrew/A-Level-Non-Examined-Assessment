@@ -1,27 +1,7 @@
 import sqlite3
 from unittest import result
 from createDatabase import load_database
-
-#Compares the value that is going to be entered to the validation rules and returns True/False depending if it meets the requirements
-def validate_edit(attri, newVal, table):
-    with sqlite3.connect('SignTeach.db') as db:
-        cursor = db.cursor()
-        cursor.execute('SELECT * FROM '+table)
-        names = list(map(lambda x: x[0], cursor.description))
-        cursor.execute('SELECT * FROM '+table)
-        IDs = cursor.fetchall()
-        if attri in names and len(newVal) != 0:
-            return True
-        else:
-            print('Failed Validation')
-            return False
-
-def validate_add(newData):
-    for i in range(len(newData)):
-        if len(newData[i]) == 0:
-            print('Failed Validation')
-            return False
-    return True
+from validation import *
 
 class GetDatabase:
     def __init__(self):
