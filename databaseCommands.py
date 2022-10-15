@@ -1,4 +1,6 @@
 import sqlite3
+
+from matplotlib.backend_bases import cursors
 from createDatabase import load_database
 from validation import *
 
@@ -16,6 +18,20 @@ class GetDatabase:
                     print(results[i])
                     return results[i]
             print('User not found')
+
+    def getAnswers(self, ModNo):
+        with sqlite3.connect('SignTeach.db') as db:
+            cursor = db.cursor()
+            cursor.execute("SELECT * FROM Answers WHERE ModNo = '%s'" % (ModNo))
+            results = cursor.fetchall()
+            return results
+    
+    def getImages(self, ImageID):
+        with sqlite3.connect('SignTeach.db') as db:
+            cursor = db.cursor()
+            cursor.execute("SELECT * FROM Images WHERE ImageID = '%s'" % (ImageID))
+            results = cursor.fetchall()
+            return results
 
 class EditDatabase:
     def __init__(self):

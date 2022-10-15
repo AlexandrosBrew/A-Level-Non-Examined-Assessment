@@ -34,5 +34,14 @@ def load_database():
             '''
         cursor.execute(sql_Users)
 
+        sql_Images = '''
+        CREATE TABLE IF NOT EXISTS Images(
+        ImageID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Image TEXT,
+        ImageAnswer TEXT
+        );
+        '''
+        cursor.execute(sql_Images)
+
 if __name__ == '__main__': #!This executes the function if this file is run directly and not run from an import.
     load_database()
