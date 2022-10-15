@@ -1,6 +1,7 @@
 import sqlite3
 
 from matplotlib.backend_bases import cursors
+from werkzeug import run_simple
 from createDatabase import load_database
 from validation import *
 
@@ -22,16 +23,22 @@ class GetDatabase:
     def getAnswers(self, ModNo):
         with sqlite3.connect('SignTeach.db') as db:
             cursor = db.cursor()
-            cursor.execute("SELECT * FROM Answers WHERE ModNo = '%s'" % (ModNo))
+            cursor.execute("SELECT * FROM Answers")
             results = cursor.fetchall()
-            return results
+            for i in range(len(results)):
+                if results[i][2] == ModNo:
+                    return results[i]
+            print('Search invalid')
     
     def getImages(self, ImageID):
         with sqlite3.connect('SignTeach.db') as db:
             cursor = db.cursor()
-            cursor.execute("SELECT * FROM Images WHERE ImageID = '%s'" % (ImageID))
+            cursor.execute("SELECT * FROM Images")
             results = cursor.fetchall()
-            return results
+            for i in range(len(results)):
+                if results[i][0] == ImageID:
+                    return results[i]
+            print('Image does not exist')
 
 class EditDatabase:
     def __init__(self):
