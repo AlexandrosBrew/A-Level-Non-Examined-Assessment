@@ -71,7 +71,7 @@ class EditDatabase:
                 cursor.execute("INSERT INTO Answers (QuestionNo, ModleNo, UserAnswer) VALUES ('%s', '%s', '%s')" % (QuestNo, ModNo, UserAnswer))
         
     def removeDatabase(self, attriID, ID, table):
-        if valid.validate_ID(ID):
+        if valid.validate_ID(ID, attriID, table):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
                 cursor.execute("DELETE FROM %s WHERE  %s = '%s'" % (table, attriID, ID))

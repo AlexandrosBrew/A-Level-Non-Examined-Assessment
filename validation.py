@@ -23,9 +23,13 @@ class Validation():
                 return False
         return True
 
-    def validate_ID(self, ID, attriID):
-        if ID <= len(attriID):
-            return True
-        else:
-            print('Failed validation for ID')
-            return False
+    def validate_ID(self, ID, attriID, table):
+        with sqlite3.connect('SignTeach.db') as db:
+            cursor = db.cursor()
+            cursor.execute('SELECT %s FROM %s' % (attriID, table))
+            result = cursor.fetchall()
+            if ID <= len(result):
+                return True
+            else:
+                print('Failed validation for ID')
+                return False
