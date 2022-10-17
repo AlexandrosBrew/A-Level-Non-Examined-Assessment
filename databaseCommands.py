@@ -2,6 +2,8 @@ import sqlite3
 from createDatabase import load_database
 from validation import *
 
+valid = Validation()
+
 class GetDatabase:
     def __init__(self):
         load_database()
@@ -41,38 +43,36 @@ class EditDatabase:
     def __init__(self):
         load_database()
 
-    #!Edits the UserAccounts table
-    def editDatabase(self, attri, newVal, prevVal, table):
-        #Calls the validate_edit funciton to cherck if the entered value is alright to enter into the database
-        if validate_edit(attri, newVal, table):
+    def editDatabase(self, attri, newVal, attriID, ID, table):
+        if valid.validate_edit(attri, newVal, table) and valid.validate_ID(ID, attriID):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
-                cursor.execute("Update %s SET %s = '%s' WHERE %s = '%s'" % (table, attri, newVal, attri, prevVal))
+                cursor.execute("Update %s SET %s = '%s' WHERE %s = '%s'" % (table, attri, newVal, attriID, ID))
                 print('Completed edit')
         else:
             print('Could not complete edit')
     
     def addUserAccount(self, Username, Password):
-        if validate_add((Username, Password)):
+        if valid.validate_add((Username, Password)):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
                 cursor.execute("INSERT INTO UserAccounts (Username, Password) VALUES ('%s', '%s')"% (Username, Password))
     
     def addImage(self, imageLoc, imageAnswer):
-        if validate_add((imageLoc, imageAnswer)):
+        if valid.validate_add((imageLoc, imageAnswer)):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
                 cursor.execute("INSERT INTO Images (Image, ImageAnswer) VALUES ('%s', '%s')" % (imageLoc, imageAnswer))
     
     def addAnswer(self, QuestNo, ModNo, UserAnswer):
-        if validate_add((QuestNo, ModNo)):
+        if valid.validate_add((QuestNo, ModNo)):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
                 cursor.execute("INSERT INTO Answers (QuestionNo, ModleNo, UserAnswer) VALUES ('%s', '%s', '%s')" % (QuestNo, ModNo, UserAnswer))
         
-    def removeDatabase(self, remRecord, attri, table):
-        if validate_add(remRecord):
+    def removeDatabase(self, attriID, ID, table):
+        if valid.validate_ID(ID, attriID, table):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
-                cursor.execute("DELETE FROM %s WHERE %s = '%s'" % (table, attri, remRecord))
+                cursor.execute("DELETE FROM %s WHERE  %s = '%s'" % (table, attriID, ID))
 
