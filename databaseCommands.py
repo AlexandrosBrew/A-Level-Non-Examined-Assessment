@@ -1,7 +1,4 @@
 import sqlite3
-
-from matplotlib.backend_bases import cursors
-from werkzeug import run_simple
 from createDatabase import load_database
 from validation import *
 
