@@ -19,13 +19,13 @@ class GetDatabase:
                     return results[i]
             print('User not found')
 
-    def getAnswers(self, ModNo):
+    def getAnswers(self, answerID):
         with sqlite3.connect('SignTeach.db') as db:
             cursor = db.cursor()
             cursor.execute("SELECT * FROM Answers")
             results = cursor.fetchall()
             for i in range(len(results)):
-                if results[i][2] == ModNo:
+                if results[i][0] == answerID:
                     return results[i]
             print('Search invalid')
     
@@ -75,4 +75,3 @@ class EditDatabase:
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
                 cursor.execute("DELETE FROM %s WHERE  %s = '%s'" % (table, attriID, ID))
-
