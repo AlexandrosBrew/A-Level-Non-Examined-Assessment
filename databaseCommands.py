@@ -18,6 +18,13 @@ class GetDatabase:
                     print(results[i])
                     return results[i]
             print('User not found')
+    
+    def getAllUsers(self):
+        with sqlite3.connect('SignTeach.db') as db:
+            cursor = db.cursor()
+            cursor.execute('SELECT * FROM UserAccounts')
+            results = cursor.fetchall()
+            return results
 
     def getAnswers(self, answerID):
         with sqlite3.connect('SignTeach.db') as db:
