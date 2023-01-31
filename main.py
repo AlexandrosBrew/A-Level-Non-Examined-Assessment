@@ -1,18 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-
-from databaseCommands import *
-from validation import *
-from createDatabase import *
+from website.databaseCommands import *
+from website.validation import *
+from website.createDatabase import *
+from website import create_app
 
 edit = EditDatabase()
 get = GetDatabase()
+app = create_app()
 
-app = Flask(__name__)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    usrList = GetDatabase.getAllUsers()
-    if request.method == 'GET':
-        for i in range(len(GetDatabase.getAllUsers())):
-            if request.form['username'] == usrList[i][1] and request.form['password'] == usrList[i][2]:
-                return redirect(url_for('home'))
+if __name__ == '__main__': #Only runs this code if this file is run directly
+    app.run(debug=True)

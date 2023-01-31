@@ -1,6 +1,6 @@
 import sqlite3
-from createDatabase import load_database
-from validation import *
+from .createDatabase import load_database
+from .validation import *
 
 valid = Validation()
 
@@ -59,11 +59,11 @@ class EditDatabase:
         else:
             print('Could not complete edit')
     
-    def addUserAccount(self, Username, Password):
+    def addUserAccount(self, Username, Password, Email):
         if valid.validate_add((Username, Password)):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
-                cursor.execute("INSERT INTO UserAccounts (Username, Password) VALUES ('%s', '%s')"% (Username, Password))
+                cursor.execute("INSERT INTO UserAccounts (Username, Password, Email) VALUES ('%s', '%s', '%s')" % (Username, Password, Email))
     
     def addImage(self, imageLoc, imageAnswer):
         if valid.validate_add((imageLoc, imageAnswer)):
@@ -82,3 +82,9 @@ class EditDatabase:
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
                 cursor.execute("DELETE FROM %s WHERE  %s = '%s'" % (table, attriID, ID))
+
+if __name__ == "__main__":
+    edit = EditDatabase()
+    get = GetDatabase()
+    edit.addUserAccount('Alex', 'Brew', 'email')
+    print(get.getAllUsers())

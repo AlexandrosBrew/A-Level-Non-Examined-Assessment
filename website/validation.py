@@ -1,5 +1,5 @@
 import sqlite3
-from createDatabase import load_database
+from .createDatabase import load_database
 
 class Validation():
     def __init__(self):

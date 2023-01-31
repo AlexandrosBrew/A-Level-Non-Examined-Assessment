@@ -12,7 +12,8 @@ def load_database():
             CREATE TABLE IF NOT EXISTS UserAccounts(
                 UserID INTEGER PRIMARY KEY AUTOINCREMENT,
                 Username TEXT,
-                Password TEXT
+                Password TEXT,
+                Email TEXT
             );
             '''
         cursor.execute(sql_UserAccount)
