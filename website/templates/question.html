@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Sign Teach{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{url_for('static', filename='images/Question1.png')}}" alt="Question 1" style="width: 30%; height: 50%; margin-top: 35px; margin-left: 300px;">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="answer" style="color: white">What is this sign for?</label>
+                        <input type="text" class="form-control" id="answer" name="answer" placeholder="Enter Answer"></label>   
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

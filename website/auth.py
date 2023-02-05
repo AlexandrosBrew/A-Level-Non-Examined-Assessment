@@ -1,13 +1,15 @@
 #Stores standard routes for auth (e.g login in, log out, register)
 
 from flask import Blueprint,render_template, request, flash, redirect, url_for
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user, LoginManager, UserMixin
 from .validation import *
 from .databaseCommands import *
 
 get = GetDatabase()
 edit = EditDatabase()
 valid = Validation()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
 
 auth = Blueprint('auth', __name__)
 
@@ -22,7 +24,6 @@ def login():
             if results[i][3] == email:
                 break
         if results[i][3] == email and results[i][2] == password:
-            # login_user()
             return redirect(url_for('views.home'))
         else:
             flash('Failed Login Try Again.', category='error')

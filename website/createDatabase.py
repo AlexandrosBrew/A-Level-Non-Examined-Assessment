@@ -21,7 +21,6 @@ def load_database():
                 CREATE TABLE IF NOT EXISTS Answers(
                 QuestionID INTEGER PRIMARY KEY AUTOINCREMENT,
                 QuestionNo INTEGER,
-                ModuleNo INTEGER,
                 UserAnswer TEXT
             );
             '''
@@ -38,6 +37,7 @@ def load_database():
         sql_Images = '''
         CREATE TABLE IF NOT EXISTS Images(
         ImageID INTEGER PRIMARY KEY AUTOINCREMENT,
+        ImageNo INTEGER,
         Image TEXT,
         ImageAnswer TEXT
         );

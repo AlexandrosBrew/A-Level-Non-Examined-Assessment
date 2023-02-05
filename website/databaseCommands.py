@@ -36,13 +36,13 @@ class GetDatabase:
                     return results[i]
             print('Search invalid')
     
-    def getImages(self, ImageID):
+    def getImages(self, ImageNo):
         with sqlite3.connect('SignTeach.db') as db:
             cursor = db.cursor()
             cursor.execute("SELECT * FROM Images")
             results = cursor.fetchall()
             for i in range(len(results)):
-                if results[i][0] == ImageID:
+                if results[i][0] == ImageNo:
                     return results[i]
             print('Image does not exist')
 
@@ -65,7 +65,7 @@ class EditDatabase:
                 cursor = db.cursor()
                 cursor.execute("INSERT INTO UserAccounts (Username, Password, Email) VALUES ('%s', '%s', '%s')" % (Username, Password, Email))
     
-    def addImage(self, imageLoc, imageAnswer):
+    def addImage(self, imageLoc, imageAnswer, imageNo):
         if valid.validate_add((imageLoc, imageAnswer)):
             with sqlite3.connect('SignTeach.db') as db:
                 cursor = db.cursor()
@@ -86,5 +86,5 @@ class EditDatabase:
 if __name__ == "__main__":
     edit = EditDatabase()
     get = GetDatabase()
-    edit.addUserAccount('Alex', 'Brew', 'email')
-    print(get.getAllUsers())
+    edit.addImage("C:/Users/vali\Documents/GitHubRepos/ALevelNEA/website/static/images/Question1.png", 'A', 1)
+    print(get.getImages(1))
