@@ -1,6 +1,6 @@
 import sqlite3
-from .createDatabase import load_database
-from .validation import *
+from website.createDatabase import load_database
+from website.validation import *
 
 valid = Validation()
 

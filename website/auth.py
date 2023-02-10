@@ -3,14 +3,15 @@
 from flask import Blueprint,render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User, Images, Answers
-from .validation import *
-from .databaseCommands import *
+# from website.validation import *
+from .views import *
+# from website.databaseCommands import *
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-get = GetDatabase()
-edit = EditDatabase()
-valid = Validation()
+# get = GetDatabase()
+# edit = EditDatabase()
+# valid = Validation()
 
 auth = Blueprint('auth', __name__)
 
@@ -36,6 +37,10 @@ def login():
 @login_required
 def logout():
     flash('Logged out successfully', category='success')
+    user = User.query.filter_by(id=current_user.id).first()
+    count = user.noCorrect
+    User.query.filter_by(id=current_user.id).update(dict(noCorrect=count))
+    logout_user()
     return redirect(url_for('auth.login'))
 
 
@@ -52,9 +57,12 @@ def sign_up():
         if user:
             flash('User already exists', category='error')
         elif  password1 == password2:
-            new_user = User(email=email, username=firstName, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, username=firstName, password=generate_password_hash(password1, method='sha256'), noCorrect=0)
+            new_Answer = Answers(userID=new_user.id, questionNo=1, answer=False)
             db.session.add(new_user)
+            db.session.add(new_Answer)
             db.session.commit()
+            print(new_Answer.answer)
             flash('Account Created!', category='success')
             return redirect(url_for('views.home'))
         else:

@@ -4,15 +4,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img src="{{url_for('static', filename='/images/Question'+questionNo+'.png')}}" alt="Question {{questionNo}}" style="width: 30%; height: 50%; margin-top: 35px; margin-left: 300px;">
+                <img src="{{url_for('static', filename='/images/Question'+questionNo+'.png')}}" alt="Question {{questionNo}}" style="width: 30%; height: 50%; margin-top: 35px; margin-left: 390px;">
                 <form method="POST">
                     <div class="form-group">
-                        <label for="answer" style="color: white">What is this sign for?</label>
+                        <label for="answer" style="color: white; margin-left: 480px; margin-top: 30px;">What is this sign for?</label>
                         <input type="text" class="form-control" id="answer" name="answer" placeholder="Enter Answer"></label>   
                     </div>
-                    <button type="submit" name='submit' class="btn btn-primary">Submit</button>
-                    <button type="submit" name='next' class="btn btn-primary">Next</button>
-                    <button type="submit" name='prev' class="btn btn-primary">Previous</button>
+                    <button type="submit" name='prev' class="btn btn-primary"><-- Previous</button>
+                    <button type="submit" name='submit' class="btn btn-primary" style="margin-left: 400px;">Submit</button>
+                    <button type="submit" name='next' class="btn btn-primary" style="margin-left: 392px;">Next --></button>
                 </form>
                 
             </div>

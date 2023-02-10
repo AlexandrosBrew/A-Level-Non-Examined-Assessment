@@ -13,7 +13,8 @@ def load_database():
                 UserID INTEGER PRIMARY KEY AUTOINCREMENT,
                 Username TEXT,
                 Password TEXT,
-                Email TEXT
+                Email TEXT,
+                noCorrect INTEGER
             );
             '''
         cursor.execute(sql_UserAccount)
@@ -25,7 +26,6 @@ def load_database():
             );
             '''
         cursor.execute(sql_Answers)
-
         sql_Users = '''
             CREATE TABLE IF NOT EXISTS Users(
             UserID INTEGER,
@@ -37,7 +37,6 @@ def load_database():
         sql_Images = '''
         CREATE TABLE IF NOT EXISTS Images(
         ImageID INTEGER PRIMARY KEY AUTOINCREMENT,
-        ImageNo INTEGER,
         Image TEXT,
         ImageAnswer TEXT
         );

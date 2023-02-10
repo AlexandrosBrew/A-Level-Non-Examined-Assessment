@@ -16,7 +16,8 @@
     </head>
     <body style="background-color:#292c2e">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><!--Navbar from bootstrap-->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"><!--Creates a button to expand navbar if screen is too small to load all of the nav menus-->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+                    <!--Creates a button to expand navbar if screen is too small to load all of the nav menus-->
                     <span class="navbar-toggler-icon"></span>
                 </button> 
                 <div class="collapse navbar-collapse" id="navbar">
@@ -24,6 +25,8 @@
                         {% if user.is_authenticated %}
                         <a class="nav-item nav-link" id="Home" href="/">Home</a>
                         <a class="nav-item nav-link" id="logout" href="/logout">Log Out</a>
+                        <a class="nav-item nav-link" id="progress" href="/progress">Progress</a>
+                        {% else %}
                         <a class="nav-item nav-link" id="login" href="/login">Login</a>
                         <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
                         {% endif %}
@@ -52,7 +55,7 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-
+        
         <div class="container">
             {% block content %}{% endblock %}
         </div>
