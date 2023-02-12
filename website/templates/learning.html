@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Sign Teach{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{url_for('static', filename='/images/Question'+questionNo+'.png')}}" alt="Question {{questionNo}}" style="width: 30%; height: 50%; margin-top: 35px; margin-left: 390px;">
+                <form method="POST" style="margin-top: 20px;">
+                    <button type="submit" name='prev' class="btn btn-primary" style="margin-left: 357px;"><-- Previous</button>
+                    <button type="submit" name='show' class="btn btn-primary">Show or Hide Answer</button>
+                    <button type="submit" name='next' class="btn btn-primary">Next --></button>
+                </form>
+                {% if showAnswer %}
+                <div class="alert alert-success" role="alert" style="margin-left: 380px; width: 340px;">
+                    <h1>The answer is: {{answer}}</h1>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

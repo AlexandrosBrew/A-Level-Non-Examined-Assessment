@@ -8,6 +8,7 @@ from .models import User, Images, Answers
 
 views = Blueprint('views', __name__)
 questionNo = 1
+showAnswer = False
 
 #Main page of website
 @views.route('/')
@@ -59,3 +60,30 @@ def questions():
             return render_template("question.html", user=current_user, questionNo=str(questionNo))
     return render_template("question.html", user=current_user, questionNo=str(questionNo))
 
+@views.route('/learning', methods=['GET', 'POST'])
+def learning():
+    global questionNo
+    global showAnswer
+    if request.method == 'POST':
+        if 'show' in request.form:
+            if showAnswer:
+                showAnswer = False
+                return render_template("learning.html", user=current_user, answer="", showAnswer=False, questionNo=str(questionNo))
+            elif showAnswer == False:
+                try:
+                    image = Images.query.filter_by(imageNo=questionNo).first()
+                    imageA = image.iAnswer
+                    showAnswer = True
+                    return render_template("learning.html", user=current_user, answer=imageA, showAnswer=True, questionNo=str(questionNo))
+                except:
+                    flash('No answer available', category='error')
+        elif 'next' in request.form:
+            questionNo+=1
+            return render_template("learning.html", user=current_user, questionNo=str(questionNo), showAnswer=False, answer="")
+        elif 'prev' in request.form:
+            if questionNo == 1:
+                questionNo = 1
+            else:
+                questionNo-=1
+            return render_template("learning.html", user=current_user, questionNo=str(questionNo), showAnswer=False, answer="")
+    return render_template("learning.html", user=current_user, questionNo=str(questionNo), showAnswer=False, answer="")
