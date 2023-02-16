@@ -1,12 +1,10 @@
-#Store the standard routes for the webiste (e.g, login page)
-
 from flask import Blueprint,render_template, request, flash, redirect, url_for
 from .models import User, Images, Answers
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .models import User, Images, Answers
 
-views = Blueprint('views', __name__)
+views = Blueprint('views', __name__) #Create blueprint object called views and give it a name of views
 questionNo = 1
 showAnswer = False
 
@@ -17,9 +15,9 @@ def home():
     return render_template("home.html", user=current_user)
 
 @views.route('/progress')
+@login_required
 def progress():
     user = User.query.filter_by(id=current_user.id).first()
-    print(user.id)
     count = user.noCorrect
     return render_template("progress.html", user=current_user, progress=count)
 
@@ -33,16 +31,12 @@ def questions():
             answer = request.form.get('answer')
             imageA = Images.query.filter_by(imageNo=questionNo).first()
             userAnswer = Answers.query.filter_by(id=current_user.id).first()
-            print(userAnswer)
-            # print(Answers.query.all())
-            # print(user.noCorrect)
             if answer == imageA.iAnswer and userAnswer.answer == False:
                 flash('Correct!', category='success')
                 user.noCorrect+=1
                 userAnswer.questionNo = questionNo
                 userAnswer.answer = True
                 db.session.commit()
-                # print(user.noCorrect)
             elif userAnswer.answer == True:
                 flash('You have already answered this question', category='error')
             else:
@@ -60,7 +54,7 @@ def questions():
             return render_template("question.html", user=current_user, questionNo=str(questionNo))
     return render_template("question.html", user=current_user, questionNo=str(questionNo))
 
-@views.route('/learning', methods=['GET', 'POST'])
+@views.route('/learning', methods=['GET', 'POST']) #Route for learning page (e.g, learning page) and allow GET and POST requests
 def learning():
     global questionNo
     global showAnswer

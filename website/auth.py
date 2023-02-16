@@ -3,15 +3,9 @@
 from flask import Blueprint,render_template, request, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User, Images, Answers
-# from website.validation import *
 from .views import *
-# from website.databaseCommands import *
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
-
-# get = GetDatabase()
-# edit = EditDatabase()
-# valid = Validation()
 
 auth = Blueprint('auth', __name__)
 
@@ -51,9 +45,7 @@ def sign_up():
         firstName = request.form.get('firstName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
         user = User.query.filter_by(email=email).first()
-
         if user:
             flash('User already exists', category='error')
         elif  password1 == password2:
