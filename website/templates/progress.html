@@ -4,9 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 style="color: white; margin-top: 35px;">Progress</h1>
+                <h1 style="color: white; margin-top: 35px; text-align: center;">Progress</h1>
+                <h4 style="color: white; margin-top: 35px;">Your Current Progress on the Questions:</h4>
                 <div class="progress">
-                    <h1 style="font-size: small;">{{progress}}/26</h1>
+                    <progress value={{progress}} max="26" style="width: 100%; height: 20px"></progress>
                 </div>
             </div>
         </div>
